@@ -13,8 +13,11 @@ public class CharacterModel : MonoBehaviourPun
     [SerializeField] private float speed;
     [SerializeField] private float modifiedSpeed;
     [SerializeField] private GameObject _cam;
+    [SerializeField] private GameObject _voice;
     private CharacterView _cv;
     public GameObject Cam { get => _cam; set => _cam = value; }
+    public GameObject Voice { get => _voice; set => _voice = value; }
+
     public Action<CharacterModel> OnDie;
 
     private Rigidbody _rb;

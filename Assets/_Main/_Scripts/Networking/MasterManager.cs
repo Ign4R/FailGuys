@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class MasterManager : MonoBehaviourPun
+public class MasterManager : MonoBehaviourPunCallbacks
 {
     Dictionary<Player, CharacterModel> _dicChars = new Dictionary<Player, CharacterModel>();
     Dictionary<CharacterModel, Player> dicPJ = new Dictionary<CharacterModel, Player>();
@@ -68,13 +68,19 @@ public class MasterManager : MonoBehaviourPun
         _dicChars[client] = character;
         dicPJ[character] = client;
         character.OnDie += DieHandlerModel;
+
     }
 
     [PunRPC]
     public void OnComponentPlayer(int id)
     {
         var pv = PhotonView.Find(id);
-        pv.GetComponent<CharacterModel>().Cam.SetActive(true);
+        var model = pv.GetComponent<CharacterModel>();
+        model.Cam.SetActive(true);
+        model.Voice.SetActive(true);
+       
+
+
     }
     [PunRPC]
     public void SetSkin(int countPJ,int id)
@@ -184,4 +190,48 @@ public class MasterManager : MonoBehaviourPun
         }
 
     }
+
+    //public IEnumerator CheckSpeaking(Player client, int id)
+    //{
+     
+    //    print("check speaking");
+    //    while (true)
+    //    {
+    //        print("enter while [CheckSpeaking]");
+    //        yield return new WaitForSecondsRealtime(2f);
+    //        photonView.RPC("UpdateVoiceUI", client, id);
+
+
+
+    //    }
+
+    //}
+    //[PunRPC]
+    //public void UpdateVoiceUI(int id)
+    //{
+    //    var pv = PhotonView.Find(id);
+    //    var view = pv.GetComponent<CharacterView>();
+      
+
+    //    if (view._voiceView.IsSpeaking)
+    //    {
+    //        view._speakerUI.SetActive(true);
+    //        print("IsSpeaking voice");
+    //    }
+    //}
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            if (_dicChars.ContainsKey(otherPlayer))
+            {
+                var character = _dicChars[otherPlayer];
+                _dicChars.Remove(otherPlayer);
+                PhotonNetwork.Destroy(character.gameObject);
+            }
+        }
+       
+    }
+
 }

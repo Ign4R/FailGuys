@@ -19,7 +19,7 @@ public class ControllerHyb : MonoBehaviour
     {
        
         MasterManager.Instance.RPCMaster("RequestConnectPlayer", PhotonNetwork.LocalPlayer);
-
+        //PhotonNetwork.Instantiate("VoiceObject", Vector3.zero, Quaternion.identity);
 
     }
     private void Update()

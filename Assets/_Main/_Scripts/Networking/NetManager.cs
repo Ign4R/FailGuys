@@ -108,4 +108,5 @@ public class NetManager : MonoBehaviourPunCallbacks
         _joinRoom_b.interactable = true;
         status.text = "ROOM DOES NOT EXIST";
     }
+    
 }
