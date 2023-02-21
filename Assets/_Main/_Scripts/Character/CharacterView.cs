@@ -4,18 +4,19 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using Photon.Realtime;
+using UnityEngine.UI;
 
 public class CharacterView : MonoBehaviourPun
 {
     private Animator _anim;
-    public GameObject _micUI;
-    public GameObject _speakerUI;
+    public Image _micUI;
+    public Image _speakerUI;
     public Animator Anim { get => _anim; private set => _anim = value; }
     private SkinnedMeshRenderer skinnedMesh;
     public int CharacterID { get; private set; }
     public SkinnedMeshRenderer SkinnedMesh { get => skinnedMesh; set => skinnedMesh = value; }
 
-    public PhotonVoiceView _voiceView; 
+
 
 
 
@@ -28,7 +29,7 @@ public class CharacterView : MonoBehaviourPun
     }
     private void Start()
     {
-       
+      
         CharacterID = photonView.OwnerActorNr;
     }
 
@@ -38,22 +39,15 @@ public class CharacterView : MonoBehaviourPun
         skinnedMesh.material = meshMat;
     }
 
+    public void IsRecording(bool record)
+    {
+        _micUI.enabled = record;
+    }
+
     void Update()
     {
 
-        if (_voiceView.IsRecording) //TODO: Problema aqui
-        {
-            _micUI.SetActive(true);
-            print("recording voice");
 
-        }
-
-        if (_voiceView.IsSpeaking) //TODO: Problema aqui
-        {
-            _speakerUI.SetActive(true);
-            print("speaking voice");
-
-        }
 
 
     }

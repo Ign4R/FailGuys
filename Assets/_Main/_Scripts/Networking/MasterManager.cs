@@ -76,11 +76,7 @@ public class MasterManager : MonoBehaviourPunCallbacks
     {
         var pv = PhotonView.Find(id);
         var model = pv.GetComponent<CharacterModel>();
-        model.Cam.SetActive(true);
-        model.Voice.SetActive(true);
-       
-
-
+        model.Cam.SetActive(true);      
     }
     [PunRPC]
     public void SetSkin(int countPJ,int id)
@@ -175,7 +171,16 @@ public class MasterManager : MonoBehaviourPunCallbacks
         timerText.text = string.Format("{0:00}:{1:00}", minutes,seconds);
 
     }
+    public void RecordingVoice(Player client, bool speak)
+    {
+        if (_dicChars.ContainsKey(client))
+        {
+            var character = _dicChars[client];
+            var cView = character.GetComponent<CharacterView>();
+            cView.IsRecording(speak);
 
+        }
+    }
     [PunRPC]
     public void UpdateUITimer(float current)
     {

@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Voice.PUN;
+using UnityEngine.UI;
+using System;
 
 public class ControllerHyb : MonoBehaviour
 {
     public MasterManager masterManager;
+    public PhotonVoiceView voiceObject;
+    public static Action<bool> OnRecorder;
+
 
     private void Awake()
     {
@@ -17,13 +22,20 @@ public class ControllerHyb : MonoBehaviour
     }
     private void Start()
     {
-       
         MasterManager.Instance.RPCMaster("RequestConnectPlayer", PhotonNetwork.LocalPlayer);
-        //PhotonNetwork.Instantiate("VoiceObject", Vector3.zero, Quaternion.identity);
+        voiceObject = PhotonNetwork.Instantiate("VoiceObject", Vector3.zero, Quaternion.identity).GetComponent<PhotonVoiceView>();
 
     }
     private void Update()
     {
+
+        if (voiceObject.IsRecording)
+        {
+            MasterManager.Instance.RecordingVoice(PhotonNetwork.LocalPlayer, voiceObject.RecorderInUse.VoiceDetection);
+        }
+
+
+
         float V = Input.GetAxisRaw("Vertical");
         Vector3 dir = new Vector3(0, 0, V);
         float mouseX = Input.GetAxis("Mouse X");
@@ -53,5 +65,15 @@ public class ControllerHyb : MonoBehaviour
 
     }
 
+  
+    public IEnumerator UpdateSpeaker()
+    {
+        while (true)
+        {
+            yield return new WaitForSecondsRealtime(1f);
+            MasterManager.Instance.photonView.RPC("SpeakerVoice", PhotonNetwork.LocalPlayer, PhotonNetwork.LocalPlayer, voiceObject.IsRecording);
+        }
+
+    }
 
 }

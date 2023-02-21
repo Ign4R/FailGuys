@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2624,11 +2624,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91175dcc15224463780e01a8a98b1b60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  voiceDetection: 0
-  voiceDetectionThreshold: 0.01
+  voiceDetection: 1
+  voiceDetectionThreshold: 0.05
   voiceDetectionDelayMs: 500
   interestGroup: 0
-  debugEchoMode: 0
+  debugEchoMode: 1
   reliableMode: 0
   encrypt: 0
   transmitEnabled: 1
@@ -3334,7 +3334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 405ec8670d92e3a44ba735763a6ebb53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rec: {fileID: 0}
+  _rec: {fileID: 729356927}
   _dropdown: {fileID: 869524387}
 --- !u!1 &883337193
 GameObject:
