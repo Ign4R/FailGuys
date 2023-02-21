@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class CharacterView : MonoBehaviourPun
 {
     private Animator _anim;
-    public Image _micUI;
+   
     public Image _speakerUI;
     public Animator Anim { get => _anim; private set => _anim = value; }
     private SkinnedMeshRenderer skinnedMesh;
@@ -39,16 +39,19 @@ public class CharacterView : MonoBehaviourPun
         skinnedMesh.material = meshMat;
     }
 
-    public void IsRecording(bool record)
-    {
-        _micUI.enabled = record;
-    }
+    //public void IsRecording(bool record)
+    //{
+    //    if (photonView.IsMine)
+    //    {
+    //       _micUI.enabled = record;
+
+    //    }
+    //}
 
     void Update()
     {
 
-
-
+      
 
     }
 

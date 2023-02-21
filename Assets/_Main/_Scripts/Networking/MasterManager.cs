@@ -171,16 +171,7 @@ public class MasterManager : MonoBehaviourPunCallbacks
         timerText.text = string.Format("{0:00}:{1:00}", minutes,seconds);
 
     }
-    public void RecordingVoice(Player client, bool speak)
-    {
-        if (_dicChars.ContainsKey(client))
-        {
-            var character = _dicChars[client];
-            var cView = character.GetComponent<CharacterView>();
-            cView.IsRecording(speak);
 
-        }
-    }
     [PunRPC]
     public void UpdateUITimer(float current)
     {

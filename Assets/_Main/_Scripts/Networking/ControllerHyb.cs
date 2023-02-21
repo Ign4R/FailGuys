@@ -8,6 +8,7 @@ using System;
 
 public class ControllerHyb : MonoBehaviour
 {
+    public Image _micUI;
     public MasterManager masterManager;
     public PhotonVoiceView voiceObject;
     public static Action<bool> OnRecorder;
@@ -29,9 +30,9 @@ public class ControllerHyb : MonoBehaviour
     }
     private void Update()
     {
-       
-        MasterManager.Instance.RecordingVoice(PhotonNetwork.LocalPlayer, voiceObject.IsRecording);
-       
+
+
+        _micUI.enabled = voiceObject.IsRecording;
 
 
         float V = Input.GetAxisRaw("Vertical");
