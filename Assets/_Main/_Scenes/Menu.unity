@@ -2626,9 +2626,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   voiceDetection: 1
   voiceDetectionThreshold: 0.05
-  voiceDetectionDelayMs: 500
+  voiceDetectionDelayMs: 200
   interestGroup: 0
-  debugEchoMode: 1
+  debugEchoMode: 0
   reliableMode: 0
   encrypt: 0
   transmitEnabled: 1
@@ -2649,7 +2649,7 @@ MonoBehaviour:
     AcousticEchoCancellation: 1
     AutomaticGainControl: 1
     NoiseSuppression: 1
-  stopRecordingWhenPaused: 0
+  stopRecordingWhenPaused: 1
   useOnAudioFilterRead: 0
   useMicrophoneTypeFallback: 1
   recordWhenJoined: 1

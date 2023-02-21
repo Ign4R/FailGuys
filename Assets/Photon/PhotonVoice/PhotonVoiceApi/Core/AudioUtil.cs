@@ -883,7 +883,7 @@ namespace Photon.Voice
                     if (this.calibrateCount <= 0)
                     {
                         this.calibrateCount = 0;
-                        this.voiceDetector.Threshold = levelMeter.AccumAvgPeakAmp * 2;
+                        //this.voiceDetector.Threshold = levelMeter.AccumAvgPeakAmp * 2;
                         if (this.onCalibrated != null) this.onCalibrated(this.voiceDetector.Threshold);
                     }
                 }

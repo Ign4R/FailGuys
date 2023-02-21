@@ -19,6 +19,7 @@ public class ControllerHyb : MonoBehaviour
         {
             //Destroy(this);
         }
+       
     }
     private void Start()
     {
@@ -28,12 +29,9 @@ public class ControllerHyb : MonoBehaviour
     }
     private void Update()
     {
-
-        if (voiceObject.IsRecording)
-        {
-            MasterManager.Instance.RecordingVoice(PhotonNetwork.LocalPlayer, voiceObject.RecorderInUse.VoiceDetection);
-        }
-
+       
+        MasterManager.Instance.RecordingVoice(PhotonNetwork.LocalPlayer, voiceObject.IsRecording);
+       
 
 
         float V = Input.GetAxisRaw("Vertical");

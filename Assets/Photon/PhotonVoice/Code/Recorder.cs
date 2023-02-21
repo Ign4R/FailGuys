@@ -237,7 +237,7 @@ namespace Photon.Voice.Unity
         {
             get
             {
-                this.GetThresholdFromDetector();
+                this.voiceDetectionThreshold = this.VoiceDetector.Threshold;
                 return this.voiceDetectionThreshold;
             }
             set
@@ -1037,18 +1037,18 @@ namespace Photon.Voice.Unity
 
         private void GetThresholdFromDetector()
         {
-            if (this.RecordingEnabled && this.VoiceDetector != null && !this.voiceDetectionThreshold.Equals(this.VoiceDetector.Threshold))
-            {
-                if (this.VoiceDetector.Threshold <= 1f && this.VoiceDetector.Threshold >= 0f)
-                {
-                    this.Logger.LogDebug("VoiceDetectionThreshold automatically changed from {0} to {1}", this.voiceDetectionThreshold, this.VoiceDetector.Threshold);
-                    this.voiceDetectionThreshold = this.VoiceDetector.Threshold;
-                }
-                else
-                {
-                    this.Logger.LogWarning("VoiceDetector.Threshold has unexpected value {0}", this.VoiceDetector.Threshold);
-                }
-            }
+            //if (this.RecordingEnabled && this.VoiceDetector != null && !this.voiceDetectionThreshold.Equals(this.VoiceDetector.Threshold))
+            //{
+            //    if (this.VoiceDetector.Threshold <= 1f && this.VoiceDetector.Threshold >= 0f)
+            //    {
+            //        this.Logger.LogDebug("VoiceDetectionThreshold automatically changed from {0} to {1}", this.voiceDetectionThreshold, this.VoiceDetector.Threshold);
+            //        this.voiceDetectionThreshold = this.VoiceDetector.Threshold;
+            //    }
+            //    else
+            //    {
+            //        this.Logger.LogWarning("VoiceDetector.Threshold has unexpected value {0}", this.VoiceDetector.Threshold);
+            //    }
+            //}
         }
 
         private void OnApplicationPause(bool paused)
