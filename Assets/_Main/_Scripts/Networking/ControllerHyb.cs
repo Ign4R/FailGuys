@@ -39,7 +39,7 @@ public class ControllerHyb : MonoBehaviour
         Vector3 dir = new Vector3(0, 0, V);
         float mouseX = Input.GetAxis("Mouse X");
 
-        if (dir != Vector3.zero && PhotonNetwork.PlayerList.Length == 2 || PhotonNetwork.PlayerList.Length == 4)
+        if (dir != Vector3.zero && PhotonNetwork.PlayerList.Length ==2 || PhotonNetwork.PlayerList.Length == 4)
         {
             MasterManager.Instance.RPCMaster("RequestMove", PhotonNetwork.LocalPlayer, dir);
         }
