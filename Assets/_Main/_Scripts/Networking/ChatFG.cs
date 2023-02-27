@@ -14,8 +14,8 @@ public class ChatFG : MonoBehaviourPun
 
     private void Start()
     {
-        nickNameUI.text = PhotonNetwork.LocalPlayer.NickName;
-        roomNameUI.text = PhotonNetwork.CurrentRoom.Name;
+        //nickNameUI.text = PhotonNetwork.LocalPlayer.NickName;
+        //roomNameUI.text = PhotonNetwork.CurrentRoom.Name;
     }
     public void SendMessageGame()
     {
@@ -30,7 +30,7 @@ public class ChatFG : MonoBehaviourPun
                 if (target == currPlayer.NickName)
                 {
                     var currMessage = string.Join(" ", words, 2, words.Length - 2);
-                    photonView.RPC("GetChatMessage", currPlayer, PhotonNetwork.NickName, currMessage, true);
+                    photonView.RPC("GetChatMessage", currPlayer, PhotonNetwork.LocalPlayer.NickName, currMessage, true);
                     GetChatMessage(PhotonNetwork.NickName, currMessage);
                     return;
                 }
@@ -42,7 +42,7 @@ public class ChatFG : MonoBehaviourPun
         }
         else
         {
-            photonView.RPC("GetChatMessage", RpcTarget.All, PhotonNetwork.NickName, message,false);
+            photonView.RPC("GetChatMessage", RpcTarget.All, PhotonNetwork.LocalPlayer.NickName, message,false);
             _inputF.text = "";
         }
     }
@@ -51,7 +51,7 @@ public class ChatFG : MonoBehaviourPun
     public void GetChatMessage(string nameClient, string message, bool dm=false)
     {
         string color;
-        if (PhotonNetwork.NickName == nameClient)
+        if (PhotonNetwork.LocalPlayer.NickName == nameClient)
         {
             color = "<color=green>";
 
