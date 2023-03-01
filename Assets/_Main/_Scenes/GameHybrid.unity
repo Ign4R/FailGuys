@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2492,6 +2492,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2367731280578762630, guid: c53a7f2e074a8ca45b642d6ef26c5180, type: 3}
+      propertyPath: m_fontSize
+      value: 72
+      objectReference: {fileID: 0}
+    - target: {fileID: 2367731280578762630, guid: c53a7f2e074a8ca45b642d6ef26c5180, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2367731280592012343, guid: c53a7f2e074a8ca45b642d6ef26c5180, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2502,12 +2510,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2367731280958254526, guid: c53a7f2e074a8ca45b642d6ef26c5180, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0009770495
+      value: 0.000043672724
+      objectReference: {fileID: 0}
+    - target: {fileID: 2367731281034455417, guid: c53a7f2e074a8ca45b642d6ef26c5180, type: 3}
+      propertyPath: m_CharacterLimit
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2367731281034455417, guid: c53a7f2e074a8ca45b642d6ef26c5180, type: 3}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 149731180}
+      objectReference: {fileID: 864845767}
     - target: {fileID: 2367731281034455417, guid: c53a7f2e074a8ca45b642d6ef26c5180, type: 3}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SendMessageGame
@@ -2515,6 +2527,22 @@ PrefabInstance:
     - target: {fileID: 2367731281034455417, guid: c53a7f2e074a8ca45b642d6ef26c5180, type: 3}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: ChatFG, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2367731281034455422, guid: c53a7f2e074a8ca45b642d6ef26c5180, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 424.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 2367731281034455422, guid: c53a7f2e074a8ca45b642d6ef26c5180, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.00021362
+      objectReference: {fileID: 0}
+    - target: {fileID: 2367731281331396639, guid: c53a7f2e074a8ca45b642d6ef26c5180, type: 3}
+      propertyPath: m_fontSize
+      value: 41.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2367731281331396639, guid: c53a7f2e074a8ca45b642d6ef26c5180, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2367731281534817695, guid: c53a7f2e074a8ca45b642d6ef26c5180, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2636,7 +2664,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: ChatRT
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5751996284726084904, guid: c53a7f2e074a8ca45b642d6ef26c5180, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c53a7f2e074a8ca45b642d6ef26c5180, type: 3}
 --- !u!224 &149731179 stripped
 RectTransform:
@@ -2645,13 +2674,24 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &149731180 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5751996284726084904, guid: c53a7f2e074a8ca45b642d6ef26c5180, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2367731281034455417, guid: c53a7f2e074a8ca45b642d6ef26c5180, type: 3}
   m_PrefabInstance: {fileID: 149731178}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7d96b3a895218149bc145fcaf9ad205, type: 3}
+  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &149731181 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2367731280958254521, guid: c53a7f2e074a8ca45b642d6ef26c5180, type: 3}
+  m_PrefabInstance: {fileID: 149731178}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &151233385
@@ -16219,6 +16259,8 @@ GameObject:
   - component: {fileID: 864845764}
   - component: {fileID: 864845763}
   - component: {fileID: 864845762}
+  - component: {fileID: 864845767}
+  - component: {fileID: 864845766}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -16309,6 +16351,44 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &864845766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 864845761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 413
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &864845767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 864845761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7d96b3a895218149bc145fcaf9ad205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  content: {fileID: 149731181}
+  nickNameUI: {fileID: 0}
+  roomNameUI: {fileID: 0}
+  _inputF: {fileID: 149731180}
 --- !u!1 &866119586
 GameObject:
   m_ObjectHideFlags: 0
