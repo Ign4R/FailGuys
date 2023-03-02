@@ -17,6 +17,7 @@ public class CharacterModel : MonoBehaviourPun
     private CharacterView _cv;
     public GameObject Cam { get => _cam; set => _cam = value; }
     public GameObject Voice { get => _voice; set => _voice = value; }
+    public Rigidbody Rb { get => _rb; set => _rb = value; }
 
     public Action<CharacterModel> OnDie;
 
@@ -35,6 +36,7 @@ public class CharacterModel : MonoBehaviourPun
     private void Start()
     {       
         modifiedSpeed = Vector3.one.x;
+        _rb.isKinematic = true;
     }
     private void Update()
     {
@@ -47,7 +49,10 @@ public class CharacterModel : MonoBehaviourPun
         _rb.velocity = dir;
 
     }
-
+    public void DisconnectPlayer()
+    {
+        PhotonNetwork.Disconnect();
+    }
     public void Jump()
     {
 

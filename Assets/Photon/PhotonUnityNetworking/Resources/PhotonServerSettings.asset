@@ -65,6 +65,11 @@ MonoBehaviour:
   - IsRecordingUI
   - SpeakerVoice
   - IsRecording
+  - StartGame
+  - DisconnectGame
+  - PauseGame
+  - MeMuted
+  - MutedAll
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -15,6 +15,7 @@ public class MasterManager : MonoBehaviourPunCallbacks
     private int countPJ;
     private float _timeElapsed=0f;
     public TMP_Text timerText;
+    private bool starting;
 
     public static MasterManager Instance
     {
@@ -39,7 +40,7 @@ public class MasterManager : MonoBehaviourPunCallbacks
     }
     private void Start()
     {
-        
+        starting = false;
     }
     private void Update()
     {
@@ -85,6 +86,8 @@ public class MasterManager : MonoBehaviourPunCallbacks
         var render = pv.GetComponent<CharacterView>();
         render.SetSkin(mats[countPJ]);
     }
+
+
     [PunRPC]
     public void RequestMove(Player client, Vector3 dir)
     {
@@ -101,9 +104,18 @@ public class MasterManager : MonoBehaviourPunCallbacks
         }
     }
     [PunRPC]
+    public void StartGame(bool value)
+    {
+        foreach (var item in _dicChars)
+        {
+            item.Value.Rb.isKinematic = value;
+        }
+
+    }
+    [PunRPC]
     public void UpdateAnimMove(Player client, float V)
     {
-        if (_dicChars.ContainsKey(client))
+        if (_dicChars.ContainsKey(client) && Time.timeScale!=0f)
         {
             var character = _dicChars[client];
             character.GetComponent<CharacterView>().Anim.SetFloat("RunVertical", V);
@@ -113,7 +125,7 @@ public class MasterManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void UpdateAnimJump(Player client, bool isJumping)
     {
-        if (_dicChars.ContainsKey(client))
+        if (_dicChars.ContainsKey(client) && Time.timeScale != 0f)
         {
             var character = _dicChars[client];
             character.GetComponent<CharacterView>()?.Anim.SetBool("Jumping", isJumping); //TODO JUMP CUANDP CHARACTER.JUMP<<<<
@@ -162,7 +174,21 @@ public class MasterManager : MonoBehaviourPunCallbacks
         }
 
     }
+    [PunRPC]
+    public void DisconnectGame(Player client)
+    {
+        if (_dicChars.ContainsKey(client))
+        {
+            var character = _dicChars[client];
+            character.DisconnectPlayer();
+        }
+    }
 
+    [PunRPC]
+    public void PauseGame(float value)
+    {
+        Time.timeScale = value;
+    }
     public void Timer()
     {
         _timeElapsed += Time.deltaTime;
