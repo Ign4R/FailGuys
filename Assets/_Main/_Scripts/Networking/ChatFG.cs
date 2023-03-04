@@ -130,17 +130,7 @@ public class ChatFG : MonoBehaviourPun
     [PunRPC]
     public void MeMuted()
     {
-        bool pvoiceBool = pvoice.RecordingEnabled;
-        if (pvoiceBool == false)
-        {
-            pvoice.RecordingEnabled = true;
-            print("transmit true");
-        }
-        if (pvoiceBool == true)
-        { 
-            pvoice.RecordingEnabled = false;
-            print("transmit false");
-        }
+        pvoice.RecordingEnabled = !pvoice.RecordingEnabled;
     }
 
     //[PunRPC]

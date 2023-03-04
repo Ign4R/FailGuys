@@ -208,39 +208,9 @@ public class MasterManager : MonoBehaviourPunCallbacks
         while (_timeElapsed != 0)
         {
             yield return new WaitForSecondsRealtime(2f);
-            photonView.RPC("UpdateUITimer", client, _timeElapsed);
+            photonView.RPC("UpdateUITimer", client, _timeElapsed); //RPC.Others
         }
-
     }
-
-    //public IEnumerator CheckSpeaking(Player client, int id)
-    //{
-     
-    //    print("check speaking");
-    //    while (true)
-    //    {
-    //        print("enter while [CheckSpeaking]");
-    //        yield return new WaitForSecondsRealtime(2f);
-    //        photonView.RPC("UpdateVoiceUI", client, id);
-
-
-
-    //    }
-
-    //}
-    //[PunRPC]
-    //public void UpdateVoiceUI(int id)
-    //{
-    //    var pv = PhotonView.Find(id);
-    //    var view = pv.GetComponent<CharacterView>();
-      
-
-    //    if (view._voiceView.IsSpeaking)
-    //    {
-    //        view._speakerUI.SetActive(true);
-    //        print("IsSpeaking voice");
-    //    }
-    //}
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
