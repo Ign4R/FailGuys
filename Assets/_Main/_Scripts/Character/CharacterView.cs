@@ -39,14 +39,11 @@ public class CharacterView : MonoBehaviourPun
         skinnedMesh.material = meshMat;
     }
 
-    //public void IsRecording(bool record)
-    //{
-    //    if (photonView.IsMine)
-    //    {
-    //       _micUI.enabled = record;
-
-    //    }
-    //}
+    [PunRPC]
+    public void IsRecording(bool record)
+    {
+        _speakerUI.enabled = record;
+    }
 
     void Update()
     {

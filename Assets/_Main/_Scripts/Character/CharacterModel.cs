@@ -32,6 +32,7 @@ public class CharacterModel : MonoBehaviourPun
     {
         _rb = GetComponent<Rigidbody>();
         _cv = GetComponent<CharacterView>();
+        _cam.SetActive(false);  
     }
     private void Start()
     {       

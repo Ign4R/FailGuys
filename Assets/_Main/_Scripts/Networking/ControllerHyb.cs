@@ -1,18 +1,19 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Voice.PUN;
 using UnityEngine.UI;
 using System;
+using TMPro;
 
 public class ControllerHyb : MonoBehaviour
 {
+ 
     public Image _micUI;
     public MasterManager masterManager;
     public PhotonVoiceView voiceObject;
     public static Action<bool> OnRecorder;
-
+    public TMP_InputField _inputF;
 
     private void Awake()
     {
@@ -24,44 +25,51 @@ public class ControllerHyb : MonoBehaviour
     }
     private void Start()
     {
+
         MasterManager.Instance.RPCMaster("RequestConnectPlayer", PhotonNetwork.LocalPlayer);
         voiceObject = PhotonNetwork.Instantiate("VoiceObject", Vector3.zero, Quaternion.identity).GetComponent<PhotonVoiceView>();
-
+        StartCoroutine(UpdateSpeaker());    
     }
     private void Update()
     {
-
-
-        _micUI.enabled = voiceObject.IsRecording;
-
-
+  
         float V = Input.GetAxisRaw("Vertical");
         Vector3 dir = new Vector3(0, 0, V);
         float mouseX = Input.GetAxis("Mouse X");
 
-        
-        if (dir != Vector3.zero )
+        if (_inputF.enabled)
         {
-            MasterManager.Instance.RPCMaster("RequestMove", PhotonNetwork.LocalPlayer, dir);
+            V = 0;
         }
 
-        if (V <= 1f) 
+        if (!_inputF.enabled) 
+        {
+            if (dir != Vector3.zero)
+            {
+                MasterManager.Instance.RPCMaster("RequestMove", PhotonNetwork.LocalPlayer, dir);
+            }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                MasterManager.Instance.RPCMaster("RequestJump", PhotonNetwork.LocalPlayer);
+                MasterManager.Instance.RPCMaster("UpdateAnimJump", PhotonNetwork.LocalPlayer, true);
+            }
+        }
+       
+        if (V <= 1f)
         {
             MasterManager.Instance.RPCMaster("UpdateAnimMove", PhotonNetwork.LocalPlayer, V);
         }
-
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.Space))
         {
-            MasterManager.Instance.RPCMaster("RequestJump", PhotonNetwork.LocalPlayer);
-            MasterManager.Instance.RPCMaster("UpdateAnimJump", PhotonNetwork.LocalPlayer,true);
+            MasterManager.Instance.RPCMaster("UpdateAnimJump", PhotonNetwork.LocalPlayer, false);
         }
-        else if(Input.GetKeyUp(KeyCode.Space)) MasterManager.Instance.RPCMaster("UpdateAnimJump", PhotonNetwork.LocalPlayer, false);
 
         if (Input.GetAxisRaw("Mouse X") != 0)
         {
-            
             MasterManager.Instance.RPCMaster("RequestRotateCam", PhotonNetwork.LocalPlayer, mouseX);
         }
+
+
 
     }
 
@@ -70,8 +78,9 @@ public class ControllerHyb : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSecondsRealtime(1f);
-            MasterManager.Instance.photonView.RPC("SpeakerVoice", PhotonNetwork.LocalPlayer, PhotonNetwork.LocalPlayer, voiceObject.IsRecording);
+            yield return new WaitForSecondsRealtime(0.5f);
+            _micUI.enabled = voiceObject.IsRecording;
+            MasterManager.Instance.RPCMaster("UpdateSpeakerVoice", PhotonNetwork.LocalPlayer, _micUI.enabled);
         }
 
     }

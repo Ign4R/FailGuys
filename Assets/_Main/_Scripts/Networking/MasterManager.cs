@@ -8,7 +8,7 @@ using UnityEngine;
 public class MasterManager : MonoBehaviourPunCallbacks
 {
     Dictionary<Player, CharacterModel> _dicChars = new Dictionary<Player, CharacterModel>();
-    Dictionary<CharacterModel, Player> dicPJ = new Dictionary<CharacterModel, Player>();
+    Dictionary<CharacterModel, Player> _dicPJ = new Dictionary<CharacterModel, Player>();
     public static MasterManager _instance;
     [SerializeField] private Transform[] spawns;
     [SerializeField] private Material[] mats;
@@ -63,12 +63,13 @@ public class MasterManager : MonoBehaviourPunCallbacks
         countPJ = PhotonNetwork.PlayerList.Length;
         GameObject obj = PhotonNetwork.Instantiate("Character0", spawns[countPJ - 1].position, Quaternion.identity);
         obj.transform.Rotate(0, 180, 0);
-        var character = obj.GetComponent<CharacterModel>();
-        photonView.RPC("SetSkin", RpcTarget.AllBuffered, countPJ-1, character.photonView.ViewID);
-        photonView.RPC("OnComponentPlayer", client, character.photonView.ViewID);
-        _dicChars[client] = character;
-        dicPJ[character] = client;
-        character.OnDie += DieHandlerModel;
+        var model = obj.GetComponent<CharacterModel>();
+        var view = obj.GetComponent<CharacterView>();
+        photonView.RPC("SetSkin", RpcTarget.AllBuffered, countPJ-1, model.photonView.ViewID);
+        photonView.RPC("OnComponentPlayer", client, model.photonView.ViewID);
+        _dicChars[client] = model;
+        _dicPJ[model] = client;
+        model.OnDie += DieHandlerModel;
 
     }
 
@@ -112,12 +113,31 @@ public class MasterManager : MonoBehaviourPunCallbacks
         }
 
     }
+
+    [PunRPC]
+    public void UpdateSpeakerVoice(Player client, bool value)
+    {
+        if (_dicChars.ContainsKey(client))
+        {
+            var model = _dicChars[client];
+            var c_view = model.GetComponent<CharacterView>();
+
+            foreach (var item in _dicChars.Keys)
+            {
+                if (item != client)
+                {
+                    c_view.photonView.RPC("IsRecording", item, value);
+                }
+            }
+        }
+    }
     [PunRPC]
     public void UpdateAnimMove(Player client, float V)
     {
         if (_dicChars.ContainsKey(client) && Time.timeScale!=0f)
         {
             var character = _dicChars[client];
+ 
             character.GetComponent<CharacterView>().Anim.SetFloat("RunVertical", V);
 
         }
@@ -155,11 +175,11 @@ public class MasterManager : MonoBehaviourPunCallbacks
     }
     public void DieHandlerModel(CharacterModel character)
     {
-        if (dicPJ.ContainsKey(character))
+        if (_dicPJ.ContainsKey(character))
         {
-            var client = dicPJ[character];
+            var client = _dicPJ[character];
             _dicChars.Remove(client);
-            dicPJ.Remove(character);
+            _dicPJ.Remove(character);
             character.photonView.RPC("LoseGame", client);
             if (_dicChars.Count == 1)
             {

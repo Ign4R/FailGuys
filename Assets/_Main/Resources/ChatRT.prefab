@@ -1238,7 +1238,6 @@ GameObject:
   - component: {fileID: 2367731282437249145}
   - component: {fileID: 2367731282437249150}
   - component: {fileID: 2367731282437249151}
-  - component: {fileID: 5751996284726084904}
   m_Layer: 5
   m_Name: ChatRT
   m_TagString: Untagged
@@ -1337,19 +1336,3 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5751996284726084904
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2367731282437249149}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7d96b3a895218149bc145fcaf9ad205, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  content: {fileID: 2367731280958254521}
-  nickNameUI: {fileID: 0}
-  roomNameUI: {fileID: 0}
-  _inputF: {fileID: 2367731281034455417}
