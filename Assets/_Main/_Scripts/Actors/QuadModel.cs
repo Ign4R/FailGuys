@@ -10,11 +10,14 @@ public class QuadModel : MonoBehaviourPun
     [SerializeField] private Animation anim;
     private float timer;
     private bool startTimer = false;
+    [SerializeField] private bool canStart = false;
     [SerializeField]private float timerToDestroy=3f;
+
+    public bool CanStart { get => canStart; set => canStart = value; }
 
     private void Update()
     {
-        if(startTimer)
+        if(startTimer&& canStart)
         timer = timer += Time.deltaTime;
         if (timer >= timerToDestroy && startTimer)
         {
@@ -29,10 +32,13 @@ public class QuadModel : MonoBehaviourPun
         if (photonView.IsMine)
         {
             if (collision.gameObject.tag != "Obstacle")
-            {
-                
-                photonView.RPC("UpdateAnimQuad", RpcTarget.All);
+            {               
                 startTimer = true;
+                if (canStart)
+                {
+                    photonView.RPC("UpdateAnimQuad", RpcTarget.All);
+                }
+               
             }
         }
        

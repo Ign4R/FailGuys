@@ -8,35 +8,24 @@ using UnityEngine.UI;
 
 public class CharacterView : MonoBehaviourPun
 {
-    private Animator _anim;
+    [SerializeField]private Animator _anim;
    
     public Image _speakerUI;
     public Animator Anim { get => _anim; private set => _anim = value; }
-    private SkinnedMeshRenderer skinnedMesh;
+    [SerializeField] private SkinnedMeshRenderer _skinnedMesh;
     public int CharacterID { get; private set; }
-    public SkinnedMeshRenderer SkinnedMesh { get => skinnedMesh; set => skinnedMesh = value; }
+    public SkinnedMeshRenderer SkinnedMesh { get => _skinnedMesh; set => _skinnedMesh = value; }
 
-
-
-
-
-    private void Awake()
-    {
-        _anim = GetComponent<Animator>();
-        SkinnedMesh = GetComponent<SkinnedMeshRenderer>();
-        
-        
-    }
     private void Start()
     {
-      
         CharacterID = photonView.OwnerActorNr;
     }
 
     [PunRPC]
-    public void SetSkin(Material meshMat)
+    public void SetSkin(Color skinColor)
     {
-        skinnedMesh.material = meshMat;
+        _skinnedMesh.materials[0].SetColor("_EmissionColor", skinColor);
+        _skinnedMesh.materials[1].color = skinColor;
     }
 
     [PunRPC]

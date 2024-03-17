@@ -11,11 +11,12 @@ public class MasterManager : MonoBehaviourPunCallbacks
     Dictionary<CharacterModel, Player> _dicPJ = new Dictionary<CharacterModel, Player>();
     public static MasterManager _instance;
     [SerializeField] private Transform[] spawns;
-    [SerializeField] private Material[] mats;
+    [SerializeField] private Color[] colours;
     private int countPJ;
     private float _timeElapsed=0f;
     public TMP_Text timerText;
-    private bool starting;
+    public QuadModel _lobby;
+    public GameObject _exitMenu;
 
     public static MasterManager Instance
     {
@@ -24,7 +25,6 @@ public class MasterManager : MonoBehaviourPunCallbacks
             return _instance;
         }
     }
-
 
     private void Awake()
     {
@@ -38,18 +38,11 @@ public class MasterManager : MonoBehaviourPunCallbacks
 
         }
     }
-    private void Start()
-    {
-        starting = false;
-    }
     private void Update()
     {
-      
-        if (PhotonNetwork.PlayerList.Length == 2|| PhotonNetwork.PlayerList.Length == 4)
+        if (_lobby.CanStart)
         {
-            
             Timer();
-
         }
     }
     public void RPCMaster(string name, params object[] p)
@@ -85,7 +78,7 @@ public class MasterManager : MonoBehaviourPunCallbacks
     {
         var pv = PhotonView.Find(id);
         var render = pv.GetComponent<CharacterView>();
-        render.SetSkin(mats[countPJ]);
+        render.SetSkin(colours[countPJ]);
     }
 
 
@@ -105,12 +98,10 @@ public class MasterManager : MonoBehaviourPunCallbacks
         }
     }
     [PunRPC]
-    public void StartGame(bool value)
+    public void StartGame()
     {
-        foreach (var item in _dicChars)
-        {
-            item.Value.Rb.isKinematic = value;
-        }
+        _lobby.CanStart = true;
+        _lobby.photonView.RPC("UpdateAnimQuad", RpcTarget.AllBuffered);
 
     }
 
@@ -192,8 +183,10 @@ public class MasterManager : MonoBehaviourPunCallbacks
             }
 
         }
+    
 
     }
+ 
     [PunRPC]
     public void DisconnectGame(Player client)
     {
@@ -209,6 +202,7 @@ public class MasterManager : MonoBehaviourPunCallbacks
     {
         Time.timeScale = value;
     }
+    [PunRPC]
     public void Timer()
     {
         _timeElapsed += Time.deltaTime;
@@ -236,14 +230,28 @@ public class MasterManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            if (_dicChars.ContainsKey(otherPlayer))
+            if (PhotonNetwork.PlayerList.Length <= 1)
+            {
+                PhotonNetwork.CurrentRoom.IsOpen = false;
+                PhotonNetwork.CurrentRoom.IsVisible = false;
+                PhotonNetwork.CurrentRoom.EmptyRoomTtl = 0; // Desactivar la limpieza automática de la sala
+                PhotonNetwork.CurrentRoom.RemovedFromList = true; // Eliminar la sala de la lista de salas
+                PhotonNetwork.LeaveRoom();
+            }
+            else if (_dicChars.ContainsKey(otherPlayer))
             {
                 var character = _dicChars[otherPlayer];
                 _dicChars.Remove(otherPlayer);
                 PhotonNetwork.Destroy(character.gameObject);
+                _exitMenu.SetActive(true);
             }
         }
        
+    }
+
+    public void BackMenu()
+    {
+        PhotonNetwork.LoadLevel("GameHybrid");
     }
 
 }

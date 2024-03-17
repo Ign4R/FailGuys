@@ -37,7 +37,6 @@ public class CharacterModel : MonoBehaviourPun
     private void Start()
     {       
         modifiedSpeed = Vector3.one.x;
-        _rb.isKinematic = true;
     }
     private void Update()
     {
@@ -75,6 +74,10 @@ public class CharacterModel : MonoBehaviourPun
     public void LoseGame()
     {
         canvasLose.SetActive(true);
+    }
+    public void BackMenu()
+    {
+        PhotonNetwork.LoadLevel("Menu");
     }
 
     [PunRPC]

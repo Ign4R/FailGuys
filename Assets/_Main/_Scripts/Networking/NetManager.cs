@@ -16,12 +16,21 @@ public class NetManager : MonoBehaviourPunCallbacks
     public Button _createRoom_b;
     public Button _joinRoom_b;
     public TextMeshProUGUI status;
+    public GameObject nameSetMenu;
+    public GameObject roomOptionMenu;
     private void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
         _createRoom_b.interactable = false;
         _joinRoom_b.interactable = true;
         status.text = "Connecting To Master";
+    }
+    public void OnEndSetName()
+    {
+        var message = _nickInputF.text;
+        if (string.IsNullOrEmpty(message) || string.IsNullOrWhiteSpace(message)) return;
+        nameSetMenu.SetActive(false);
+        roomOptionMenu.SetActive(true);
     }
     /// GAME = ROOM
     public void CreateGame()

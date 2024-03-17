@@ -38,7 +38,6 @@ public class ChatGame : MonoBehaviourPun
         var eventSystem = EventSystem.current;
         if (!eventSystem.alreadySelecting && !_inputF.enabled)
         {
-            print("mode on");
             eventSystem.SetSelectedGameObject(null);
             _inputF.enabled = true;
             _inputF.ActivateInputField();
@@ -88,7 +87,7 @@ public class ChatGame : MonoBehaviourPun
         else if (message == _commandStart)
         {
             print("EMPIEZA EL JUEGO ");
-            MasterManager.Instance.RPCMaster("StartGame", false);
+            MasterManager.Instance.RPCMaster("StartGame");
 
             //TODO
         }
