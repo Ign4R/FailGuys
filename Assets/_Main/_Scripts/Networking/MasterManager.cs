@@ -225,13 +225,19 @@ public class MasterManager : MonoBehaviourPunCallbacks
             photonView.RPC("UpdateUITimer", client, _timeElapsed); //RPC.Others
         }
     }
-
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        base.OnMasterClientSwitched(newMasterClient);
+        _exitMenu.SetActive(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         if (PhotonNetwork.IsMasterClient)
         {
             if (PhotonNetwork.PlayerList.Length <= 1)
-            {
+            {              
                 PhotonNetwork.CurrentRoom.IsOpen = false;
                 PhotonNetwork.CurrentRoom.IsVisible = false;
                 PhotonNetwork.CurrentRoom.EmptyRoomTtl = 0; // Desactivar la limpieza automática de la sala
@@ -243,15 +249,15 @@ public class MasterManager : MonoBehaviourPunCallbacks
                 var character = _dicChars[otherPlayer];
                 _dicChars.Remove(otherPlayer);
                 PhotonNetwork.Destroy(character.gameObject);
-                _exitMenu.SetActive(true);
             }
         }
-       
+
     }
 
     public void BackMenu()
     {
-        PhotonNetwork.LoadLevel("GameHybrid");
+        PhotonNetwork.Disconnect();
+        PhotonNetwork.LoadLevel("Menu");
     }
 
 }
