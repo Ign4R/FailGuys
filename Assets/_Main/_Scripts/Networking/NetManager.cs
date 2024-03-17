@@ -35,6 +35,7 @@ public class NetManager : MonoBehaviourPunCallbacks
     /// GAME = ROOM
     public void CreateGame()
     {
+        if (status.text == "Disconnected") return;
         if (string.IsNullOrEmpty(_roomInputF.text) || string.IsNullOrWhiteSpace(_roomInputF.text))
         {
             status.text = "Write Room Name";
@@ -69,7 +70,6 @@ public class NetManager : MonoBehaviourPunCallbacks
         }
         PhotonNetwork.JoinRoom(_roomJoinInputF.text);
         PhotonNetwork.NickName = _nickInputF.text;
-        _createRoom_b.interactable = false;
         _joinRoom_b.interactable = false;
     }
     public override void OnConnectedToMaster()
@@ -80,7 +80,7 @@ public class NetManager : MonoBehaviourPunCallbacks
     }
     public override void OnDisconnected(DisconnectCause cause)
     {
-        status.text = "Connection failed";
+        status.text = "Disconnected";
     }
 
     public override void OnJoinedLobby()

@@ -73,16 +73,19 @@ public class CharacterModel : MonoBehaviourPun
     [PunRPC]
     public void LoseGame()
     {
+        Cursor.visible = true;
         canvasLose.SetActive(true);
     }
     public void BackMenu()
     {
+        PhotonNetwork.Disconnect();
         PhotonNetwork.LoadLevel("Menu");
     }
 
     [PunRPC]
     public void WinGame()
     {
+        Cursor.visible = true;
         canvasWin.SetActive(true);
         Time.timeScale = 0f;
     }
@@ -96,7 +99,6 @@ public class CharacterModel : MonoBehaviourPun
             if (collision.gameObject.tag == "Floor")
             {
                 touchGround = true;
-                print("touch ground");
             }
            
         }
